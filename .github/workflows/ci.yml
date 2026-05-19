@@ -1,9 +1,4 @@
-name: DevOps CI Pipeline
-
-on:
-  push:
-    branches:
-   name: DevOps CI/CD Pipeline
+name: DevOps CI/CD Pipeline
 
 on:
   push:
