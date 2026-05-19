@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: flaskapp:1.0
+          image: chydi3/flaskapp:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
