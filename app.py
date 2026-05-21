@@ -4,10 +4,11 @@ import socket
 import datetime
 import random
 
-app = Flask(__name__)
+# ✅ Environment variables (AFTER import os)
+VERSION = os.getenv("APP_VERSION", "v1")
+ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 
-VERSION = "v2"
-ENVIRONMENT = "production"
+app = Flask(__name__)
 
 @app.route("/")
 def home():
