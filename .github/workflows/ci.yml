@@ -19,9 +19,9 @@ jobs:
       - name: Show version
         run: echo "Version is $VERSION"
 
-     - name: Update APP_VERSION only
+     - name: Update APP_VERSION
   run: |
-    sed -i 's/name: APP_VERSION\n *value: ".*"/name: APP_VERSION\n          value: "'$VERSION'"/' web-deployment.yaml
+    sed -i "s/value: \"v[0-9a-z]*\"/value: \"$VERSION\"/" web-deployment.yaml
 
 
       - name: Show updated deployment
