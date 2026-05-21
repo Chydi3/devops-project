@@ -1,9 +1,20 @@
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v3
+name: DevOps CI/CD Pipeline
 
-  - name: Set version
-    run: echo "VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+on:
+  push:
+    branches:
+      - main
 
-  - name: Show version
-    run: echo "Version is $VERSION"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set version
+        run: echo "VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Show version
+        run: echo "Version is $VERSION"
