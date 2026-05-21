@@ -18,3 +18,10 @@ jobs:
 
       - name: Show version
         run: echo "Version is $VERSION"
+
+      - name: Update deployment file
+        run: |
+          sed -i "s/value: \".*\"/value: \"$VERSION\"/" web-deployment.yaml
+
+      - name: Show updated deployment
+        run: cat web-deployment.yaml
