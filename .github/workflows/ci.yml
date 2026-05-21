@@ -25,6 +25,7 @@ jobs:
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/flaskapp:latest
 
-      - name: Deploy to Kubernetes (update image)
+      - name: Trigger Kubernetes rollout
         run: |
-          echo "Simulating deployment"
+          echo "Trigger deployment update"
+
