@@ -21,7 +21,15 @@ jobs:
 
       - name: Update APP_VERSION
         run: |
-          sed -i 's/value: ".*"/value: "'$VERSION'"/' web-deployment.yaml
+          sed -i 's/name: APP_VERSION.*/name: APP_VERSION\n          value: "'$VERSION'"/' web-deployment.yaml
+
+      - name: Commit updated file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add web-deployment.yaml
+          git commit -m "Update version to $VERSION" || echo "No changes to commit"
+          git push
 
       - name: Show updated deployment
         run: cat web-deployment.yaml
