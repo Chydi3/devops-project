@@ -19,9 +19,12 @@ jobs:
       - name: Show version
         run: echo "Version is $VERSION"
 
-      - name: Update APP_VERSION
+      - name: Update APP_VERSION safely
         run: |
-          sed -i 's/name: APP_VERSION.*/name: APP_VERSION\n          value: "'$VERSION'"/' web-deployment.yaml
+          awk -v v="$VERSION" '
+          /name: APP_VERSION/ {print; getline; print "          value: \"" v "\""; next}
+          {print}
+          ' web-deployment.yaml > temp.yaml && mv temp.yaml web-deployment.yaml
 
       - name: Commit updated file
         run: |

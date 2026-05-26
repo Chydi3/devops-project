@@ -20,7 +20,7 @@ spec:
             - containerPort: 7000
           env:
             - name: APP_VERSION
-          value: "2ef645c"
-              value: "v1"
+              value: "bbdbb28"
             - name: ENVIRONMENT
               value: "production"
+
