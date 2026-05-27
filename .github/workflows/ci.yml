@@ -1,38 +1,25 @@
-name: DevOps CI/CD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set version
-        run: echo "VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-      - name: Show version
-        run: echo "Version is $VERSION"
-
-      - name: Update APP_VERSION safely
-        run: |
-          awk -v v="$VERSION" '
-          /name: APP_VERSION/ {print; getline; print "          value: \"" v "\""; next}
-          {print}
-          ' web-deployment.yaml > temp.yaml && mv temp.yaml web-deployment.yaml
-
-      - name: Commit updated file
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add web-deployment.yaml
-          git commit -m "Update version to $VERSION" || echo "No changes to commit"
-          git push
-
-      - name: Show updated deployment
-        run: cat web-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: flaskapp:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 7000
+          env:
+            - name: APP_VERSION
+              value: "bbdbb28"
+            - name: ENVIRONMENT
+              value: "production"
