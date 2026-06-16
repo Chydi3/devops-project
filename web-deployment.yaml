@@ -14,13 +14,13 @@ spec:
     spec:
       containers:
         - name: web
-          image: chydi3/flaskapp:latest
+          image: chydi3/flaskapp:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 7000
           env:
             - name: APP_VERSION
-              value: "0bad943"
+              value: "v10"
             - name: ENVIRONMENT
               value: "production"
 
